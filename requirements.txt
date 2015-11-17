@@ -1,0 +1,5 @@
+pattern==2.6
+cairosvg==1.0.19
+pyPDF2==1.25.1
+requests==2.8.1
+tweepy==3.4.0
