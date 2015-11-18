@@ -70,15 +70,22 @@ def get_random_walkthrough_instruction():
                 prev_line = clean_lines[-1]
                 if not prev_line:
                     continue
-                if not (prev_line.startswith('\t') or prev_line.startswith(' ')) and prev_line.strip()[-1].isalpha():
-                    clean_lines[-1] = prev_line.strip() + '.'
+                if not (prev_line.startswith('\t') or prev_line.startswith(' ')) and \
+                        (prev_line.strip()[-1].isalpha() or prev_line.strip()[-1] == ':'):
+                    prev_line = prev_line.rstrip()
+                    if prev_line:
+                        if prev_line[-1].isalpha():
+                            prev_line += '.'
+                        else:
+                            prev_line = prev_line[:-1] + '.'
 
-                line = line.strip()
-                clean_lines.append(line.strip())
+                    clean_lines[-1] = prev_line
+
+                clean_lines.append(line.rstrip())
                 line_added = True
 
             if not line_added:
-                clean_lines.append(line.strip())
+                clean_lines.append(line.rstrip())
         clean_text = '\n'.join(clean_lines)
 
         # Remove enumerations such as:
