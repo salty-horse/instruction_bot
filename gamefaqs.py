@@ -9,7 +9,10 @@ from pattern.en import parsetree
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__)) + '/'
 
-RE_REPEATING_CHARS = re.compile(r'(.)\1{9,}')
+RE_REPEATING_WHITESPACE = re.compile(r'([\w])( {2,})')
+RE_LEADING_WHITESPACE = re.compile(r'^(\s+)')
+
+RE_REPEATING_CHARS = re.compile(r'([^ ])\1{4,}')
 RE_ENUMERATED_LIST = re.compile('([^.])\n(\\s*\\d+\\. )', re.MULTILINE)
 
 
@@ -51,17 +54,30 @@ def get_random_walkthrough_instruction():
             print 'bishoujo found'
             return None
 
+        # Strip all blocks of multiple spaces, ignore space blocks in the
+        # beginning of the line.
+        clean_lines = []
+        for line in walkthrough_text.splitlines():
+            match = RE_LEADING_WHITESPACE.match(line)
+            if match:
+                leading_whitespace = match.groups()[0]
+            else:
+                leading_whitespace = ''
+            line = leading_whitespace + RE_REPEATING_WHITESPACE.sub('\\1.\n\\2', line.lstrip())
+            clean_lines.append(line)
+        no_whitespace_text = '\n'.join(clean_lines)
+
+
         # Cleanup
         clean_lines = []
 
-        for line in walkthrough_text.splitlines():
+        for line in no_whitespace_text.splitlines():
             if RE_REPEATING_CHARS.search(line):
                 continue
 
             # Try catch headings like this and terminate the top sentence.
             # "Headline
             #      Stuff about it"
-
             line_added = False
 
             if line.startswith('\t') or line.startswith('  '):
@@ -94,15 +110,37 @@ def get_random_walkthrough_instruction():
         clean_text = RE_ENUMERATED_LIST.sub('\\1.\n', clean_text)
 
         ptree = parsetree(clean_text)
-        interesting_sentences = [
-            s.string for s in ptree if \
-            ((s[0].type == 'VB' and s[0].string.lower() != 'quit') or
-             (len(s.words) >= 2 and (s.words[0].string.lower(), s.words[1].string.lower()) in [('do', "n't"), ('use', 'the')])) \
-            and not any(w.lower() in bad_words for w in s.string.split())
-        ]
+
+        interesting_sentences = []
+        for s in ptree:
+            sentence_string = s.string
+            sentence_string_lower = sentence_string.lower()
+
+            if sentence_string.startswith(('I', "I ' m", '(')):
+                continue
+
+            # Filter How/Why/What/Where...
+            if s[0].type == 'WRB':
+                continue
+
+            if sentence_string_lower.startswith('will'):
+                continue
+
+            if any(w.lower() in bad_words for w in sentence_string.split()):
+                continue
+
+            if (s[0].type == 'VB' and s[0].string.lower() != 'quit'):
+                interesting_sentences.append(sentence_string)
+            elif (len(s.words) >= 2 and (s.words[0].string.lower(), s.words[1].string.lower()) in [('do', "n't"), ('use', 'the')]):
+                interesting_sentences.append(sentence_string)
+            else:
+                # Allow for any sentence with a verb.
+                if any(word.type == 'VB' for word in s.words):
+                    interesting_sentences.append(sentence_string)
 
         restored_sentences = [
             s.replace(' , ', ', '). \
+              replace('|', ''). \
               replace(u' ’ ', " ' "). \
               replace(' ; ', ', '). \
               replace(' .', '. '). \
@@ -113,6 +151,8 @@ def get_random_walkthrough_instruction():
               replace(" 'll ", "'ll "). \
               replace(" n't", "n't"). \
               replace(" 're ", "'re "). \
+              replace(" 've ", "'ve "). \
+              replace('$ ', '$'). \
               replace(" ( ", " ("). \
               replace(" )", ")"). \
               replace(' :', ':'). \
