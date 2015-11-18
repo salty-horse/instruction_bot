@@ -63,6 +63,9 @@ def get_random_walkthrough_instruction():
             # Try catch headings like this and terminate the top sentence.
             # "Headline
             #      Stuff about it"
+
+            line_added = False
+
             if line.startswith('\t') or line.startswith('  '):
                 if not clean_lines:
                     continue
@@ -74,8 +77,10 @@ def get_random_walkthrough_instruction():
 
                 line = line.strip()
                 clean_lines.append(line.strip())
+                line_added = True
 
-            clean_lines.append(line.strip())
+            if not line_added:
+                clean_lines.append(line.strip())
         clean_text = '\n'.join(clean_lines)
 
         # Remove enumerations such as:
