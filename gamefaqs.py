@@ -15,8 +15,6 @@ RE_ENUMERATED_LIST = re.compile('([^.])\n(\\s*\\d+\\. )', re.MULTILINE)
 
 bad_words = set(open(ROOT_PATH + 'badwords.txt').read().splitlines())
 bad_words.add('faq')
-bad_words.add('me')
-bad_words.add('I')
 
 def get_random_walkthrough_instruction():
     with open(ROOT_PATH + '/games.txt') as f:
