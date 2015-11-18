@@ -18,6 +18,8 @@ RE_ENUMERATED_LIST = re.compile('([^.])\n(\\s*\\d+\\. )', re.MULTILINE)
 
 bad_words = set(open(ROOT_PATH + 'badwords.txt').read().splitlines())
 bad_words.add('faq')
+bad_words.add('http')
+bad_words.add('.com/')
 
 filter_words = [
     'adult visual novel',
@@ -169,6 +171,7 @@ def get_random_walkthrough_instruction(char_limit=100):
               replace(" }", "}"). \
               replace(' :', ':'). \
               replace(' ?', '?'). \
+              replace('. .', '.'). \
               # replace('* *', '**'). \
               # replace('*', ''). \
               replace(' !', '!').strip()
