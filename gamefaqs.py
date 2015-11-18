@@ -19,6 +19,13 @@ RE_ENUMERATED_LIST = re.compile('([^.])\n(\\s*\\d+\\. )', re.MULTILINE)
 bad_words = set(open(ROOT_PATH + 'badwords.txt').read().splitlines())
 bad_words.add('faq')
 
+filter_words = [
+    'adult visual novel',
+    'bishoujo',
+    'eroge',
+    'hentai',
+]
+
 def get_random_walkthrough_instruction(char_limit=100):
     with open(ROOT_PATH + '/games.txt') as f:
         game_url = 'http://gamefaqs.com' + random.choice([
@@ -51,7 +58,7 @@ def get_random_walkthrough_instruction(char_limit=100):
             in Element(walkthrough_page)('pre > span'))) #.replace('\r\n', '\n')
 
         lower_walkthrough_text = walkthrough_text.lower()
-        if 'bishoujo' in lower_walkthrough_text or 'adult visual novel' in lower_walkthrough_text:
+        if any(word in lower_walkthrough_text for word in filter_words):
             print 'bishoujo/adult visual novel found'
             return None
 
