@@ -92,7 +92,7 @@ def get_random_walkthrough_instruction():
         interesting_sentences = [
             s.string for s in ptree if \
             ((s[0].type == 'VB' and s[0].string.lower() != 'quit') or
-                (s.words[0].string.lower() == 'do' and s.words[1].string.lower() == "n't")) \
+             (len(s.words) >= 2 and (s.words[0].string.lower(), s.words[1].string.lower()) in [('do', "n't"), ('use', 'the')])) \
             and not any(w.lower() in bad_words for w in s.string.split())
         ]
 
