@@ -1,5 +1,11 @@
 #/pc/562708-the-maids-story/faqs
+#/pc/623039-dengeki-striker/faqs
+#/pc/624564-slave-witch-april/faqs
+#/pc/669469-chou-dengeki-striker/faqs
 #/pc/919344-lets-meow-meow/faqs
+#/pc/931893-wanko-to-kurasou/faqs
+#/pc/931914-sono-yokogao-oken-tsumete-shimau/faqs
+#/pc/991235-yosuga-no-sora/faqs
 /pc/100038-grim-fandango-remastered/faqs
 /pc/10256-shannara/faqs
 /pc/112288-technobabylon/faqs
@@ -504,8 +510,6 @@
 /pc/622424-back-to-the-future-the-game-episode-iv-double-visions/faqs
 /pc/622425-back-to-the-future-the-game-episode-v-outatime/faqs
 /pc/622432-the-walking-dead-episode-1-a-new-day/faqs
-/pc/623039-dengeki-striker/faqs
-/pc/624564-slave-witch-april/faqs
 /pc/625223-heileen-sail-away/faqs
 /pc/625842-samantha-swift-and-the-fountains-of-fate/faqs
 /pc/625901-blackwell-deception/faqs
@@ -543,7 +547,6 @@
 /pc/668964-the-walking-dead-episode-4-around-every-corner/faqs
 /pc/668965-the-walking-dead-episode-5-no-time-left/faqs
 /pc/668983-touma-kojirous-detective-file-murder-at-the-opera-house/faqs
-/pc/669469-chou-dengeki-striker/faqs
 /pc/671078-nancy-drew-tomb-of-the-lost-queen/faqs
 /pc/671875-eastern-mind-the-lost-souls-of-tong-nou/faqs
 /pc/672707-lego-the-lord-of-the-rings/faqs
@@ -742,8 +745,6 @@
 /pc/931349-ever17-out-of-infinity/faqs
 /pc/931418-fate-hollow-ataraxia/faqs
 /pc/931753-star-trek-the-next-generation-the-transinium-challenge/faqs
-/pc/931893-wanko-to-kurasou/faqs
-/pc/931914-sono-yokogao-oken-tsumete-shimau/faqs
 /pc/931921-princess-waltz/faqs
 /pc/931934-symphonic-rain/faqs
 /pc/932287-the-secrets-of-da-vinci-the-forbidden-manuscript/faqs
@@ -924,7 +925,6 @@
 /pc/990800-dear-drops/faqs
 /pc/990805-starless-nymphomaniacs-paradise/faqs
 /pc/990907-goshujin-da-isuki/faqs
-/pc/991235-yosuga-no-sora/faqs
 /pc/991336-monkey-island-2-special-edition-lechucks-revenge/faqs
 /pc/991373-sam-and-max-the-devils-playhouse-episode-1-the-penal-zone/faqs
 /pc/991757-sam-and-max-the-devils-playhouse-episode-2-the-tomb-of/faqs

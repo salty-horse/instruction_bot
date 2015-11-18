@@ -50,8 +50,9 @@ def get_random_walkthrough_instruction(char_limit=100):
             for span
             in Element(walkthrough_page)('pre > span'))) #.replace('\r\n', '\n')
 
-        if 'bishoujo' in walkthrough_text.lower():
-            print 'bishoujo found'
+        lower_walkthrough_text = walkthrough_text.lower()
+        if 'bishoujo' in lower_walkthrough_text or 'adult visual novel' in lower_walkthrough_text:
+            print 'bishoujo/adult visual novel found'
             return None
 
         # Strip all blocks of multiple spaces, ignore space blocks in the
