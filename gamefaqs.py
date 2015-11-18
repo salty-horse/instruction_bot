@@ -107,6 +107,7 @@ def get_random_walkthrough_instruction():
               replace(' ; ', ', '). \
               replace(' .', '. '). \
               replace(" 's ", "'s "). \
+              replace(" ' s ", "'s "). \
               replace("s ' ", "s' "). \
               replace(u" ’ s ", "'s "). \
               replace(" 'll ", "'ll "). \
