@@ -19,7 +19,7 @@ RE_ENUMERATED_LIST = re.compile('([^.])\n(\\s*\\d+\\. )', re.MULTILINE)
 bad_words = set(open(ROOT_PATH + 'badwords.txt').read().splitlines())
 bad_words.add('faq')
 
-def get_random_walkthrough_instruction():
+def get_random_walkthrough_instruction(char_limit=100):
     with open(ROOT_PATH + '/games.txt') as f:
         game_url = 'http://gamefaqs.com' + random.choice([
                 g for
@@ -163,7 +163,7 @@ def get_random_walkthrough_instruction():
               for s in interesting_sentences
         ]
 
-        short_sentences = list(set(s for s in restored_sentences if len(s) < 110 and len(s.split()) > 2))
+        short_sentences = list(set(s for s in restored_sentences if len(s) <= char_limit and len(s.split()) > 2))
         if not short_sentences:
             return None
 
