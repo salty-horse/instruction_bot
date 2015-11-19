@@ -137,6 +137,7 @@
 #/pc/978203-period/faqs
 #/pc/981962-bible-black-the-infection/faqs
 #/pc/986220-g-senjou-no-maou-the-devil-on-g-string/faqs
+#/pc/990800-dear-drops/faqs
 #/pc/990805-starless-nymphomaniacs-paradise/faqs
 #/pc/990907-goshujin-da-isuki/faqs
 #/pc/991235-yosuga-no-sora/faqs
@@ -926,7 +927,6 @@
 /pc/982223-tales-of-monkey-island/faqs
 /pc/986981-last-half-of-darkness/faqs
 /pc/989928-jolly-rover/faqs
-/pc/990800-dear-drops/faqs
 /pc/991336-monkey-island-2-special-edition-lechucks-revenge/faqs
 /pc/991373-sam-and-max-the-devils-playhouse-episode-1-the-penal-zone/faqs
 /pc/991757-sam-and-max-the-devils-playhouse-episode-2-the-tomb-of/faqs
