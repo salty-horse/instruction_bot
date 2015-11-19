@@ -18,14 +18,17 @@ RE_ENUMERATED_LIST = re.compile('([^.])\n(\\s*\\d+\\. )', re.MULTILINE)
 
 bad_words = set(open(ROOT_PATH + 'badwords.txt').read().splitlines())
 bad_words.add('faq')
-bad_words.add('http')
-bad_words.add('.com/')
 
 filter_words = [
     'adult visual novel',
     'bishoujo',
     'eroge',
     'hentai',
+]
+
+filter_substrings = [
+    'http',
+    '.com',
 ]
 
 def get_random_walkthrough_instruction(char_limit=100):
@@ -176,6 +179,11 @@ def get_random_walkthrough_instruction(char_limit=100):
               # replace('*', ''). \
               replace(' !', '!').strip()
               for s in interesting_sentences
+        ]
+
+        restored_sentences = [
+            s for s in restored_sentences
+            if not any(substr in s for substr in filter_substrings)
         ]
 
         short_sentences = list(set(s for s in restored_sentences if len(s) <= char_limit and len(s.split()) > 2))
