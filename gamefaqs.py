@@ -42,7 +42,7 @@ def get_random_walkthrough_instruction(char_limit=100):
         # Look for General FAQs
         general_faqs = Element(game_page)('h2.title:contains(General)')
         if not general_faqs:
-            print 'No FAQs found for', game_page
+            print 'No FAQs found for', game_url
             return None
 
         walkthroughs = [
