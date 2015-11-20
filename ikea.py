@@ -66,7 +66,6 @@ def get_diagrams(png_filename, xml_filename):
     for square in squares:
         # cv2.drawContours(img, [square], 0, (255, 0, 255), 1)
         cv2.drawContours(gray, [square], 0, (0, 0, 0), 12)
-        cv2.drawContours(img, [square], 0, (255, 255, 255), 5)
 
     radius = 15
     kernel = np.zeros((2*radius+1, 2*radius+1), np.uint8)
