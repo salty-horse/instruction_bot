@@ -48,9 +48,12 @@ def get_diagrams(png_filename):
         cv2.drawContours(gray, [square], 0, (0, 0, 0), 12)
         cv2.drawContours(img, [square], 0, (255, 255, 255), 5)
 
-    kernel = np.ones((3, 3),np.uint8)
-    for i in range(10):
-        gray = cv2.dilate(gray, kernel)
+    radius = 15
+    kernel = np.zeros((2*radius+1, 2*radius+1), np.uint8)
+    y,x = np.ogrid[-radius:radius+1, -radius:radius+1]
+    mask = x**2 + y**2 <= radius**2
+    kernel[mask] = 1
+    gray = cv2.dilate(gray, kernel)
 
     contours, hier = cv2.findContours(gray, cv2.RETR_EXTERNAL,
             cv2.CHAIN_APPROX_SIMPLE, (0, 0))
