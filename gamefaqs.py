@@ -29,6 +29,7 @@ filter_words = [
 filter_substrings = [
     'http',
     '.com',
+    'copyright',
 ]
 
 def get_random_walkthrough_instruction(char_limit=100):
