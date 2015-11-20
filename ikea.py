@@ -13,6 +13,7 @@ import requests
 from PyPDF2 import PdfFileReader
 import cv2
 import numpy as np
+from lxml import etree
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__)) + '/'
 
@@ -21,10 +22,29 @@ LETTER_RE = re.compile(('[^\W\d]'))
 
 
 
-def get_diagrams(png_filename):
+def get_diagrams(png_filename, xml_filename):
     # img = cv2.imread(fname)
     img = cv2.imread(png_filename, 0)
     ret, gray = cv2.threshold(img, 200, 255, cv2.THRESH_BINARY_INV)
+
+    # Remove text from gray image
+    tree = etree.parse(xml_filename)
+    page_elem = tree.xpath('//page')[0]
+    page_width = int(page_elem.attrib['width'])
+    page_height = int(page_elem.attrib['height'])
+
+    vertical_scale = float(img.shape[0]) / page_height
+    horizontal_scale = float(img.shape[1]) / page_width
+
+    for text_elem in tree.xpath('//text'):
+        top = int(vertical_scale * int(text_elem.attrib['top']))
+        height = int(vertical_scale * int(text_elem.attrib['height']))
+        left = int(horizontal_scale * int(text_elem.attrib['left']))
+        width = int(horizontal_scale * int(text_elem.attrib['width']))
+        top_left = (left, top)
+        bottom_right = (left+width, top+height)
+        cv2.rectangle(gray, top_left, bottom_right, 0, -1)
+
 
     # Remove borders
 
@@ -80,13 +100,6 @@ def get_diagrams(png_filename):
 
     return diagrams
 
-
-def is_text_page(filename, page_number):
-    # This skips a few pages that have text AND images
-    page_number = str(page_number)
-    text = subprocess.check_output(['pdftotext', '-f', page_number, '-l', page_number,
-        filename, '-'])
-    return len(LETTER_RE.findall(text)) > 60
 
 
 def extract_product_name(s):
@@ -150,23 +163,27 @@ def get_diagrams_from_file(pdf_fname):
 
     diagrams = []
 
-    temp_filename = tempfile.mkstemp(prefix='tmp_instruction_bot', suffix='.png')[1]
+    png_fname = tempfile.mkstemp(prefix='tmp_instruction_bot', suffix='.png')[1]
+    xml_metadata_fname = tempfile.mkstemp(prefix='tmp_instruction_bot', suffix='.xml')[1]
+
     # pdftocairo bug, appending a suffix despite -singlefile
-    temp_filename_no_suffix = temp_filename[:-4]
+    png_fname_no_suffix = png_fname[:-4]
 
-    for page_number in range(2, total_pages+1):
-        if is_text_page(pdf_fname, page_number):
-            print 'skipping text page', page_number
-            continue
-
-        subprocess.call(['pdftocairo', '-f', str(page_number), '-l', str(page_number),
-            '-png', '-singlefile', '-scale-to', '1241', '-gray', pdf_fname, temp_filename_no_suffix])
+    for page_number in range(1, total_pages+1):
+        page_number_str = str(page_number)
+        subprocess.call(['pdftocairo', '-f', page_number_str, '-l', page_number_str,
+            '-png', '-singlefile', '-scale-to', '1241', '-gray', pdf_fname, png_fname_no_suffix])
+        subprocess.call(['pdftohtml', '-f', page_number_str, '-l', page_number_str,
+            '-xml', '-i', pdf_fname, xml_metadata_fname],
+            stdout=open(os.devnull),
+            stderr=open(os.devnull))
 
         print 'Fetching diagrams from page', page_number, '...',
-        page_diagrams = get_diagrams(temp_filename)
+        page_diagrams = get_diagrams(png_fname, xml_metadata_fname)
         diagrams.extend(page_diagrams)
         print 'found', len(page_diagrams)
-    os.unlink(temp_filename)
+    os.unlink(png_fname)
+    os.unlink(xml_metadata_fname)
 
     return diagrams
 
