@@ -2,39 +2,29 @@
 
 import re
 import os
+import sys
 import subprocess
 import random
 import tempfile
 import json
 import gzip
 import codecs
-from StringIO import StringIO
 import requests
 from PyPDF2 import PdfFileReader
 import cv2
 import numpy as np
-import cairosvg
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__)) + '/'
 
 PRODUCT_NAME_RE = re.compile(u'([ÅÄÖA-Z/]+)')
 LETTER_RE = re.compile(('[^\W\d]'))
 
-def get_diagrams(png_image):
+
+
+def get_diagrams(png_filename):
     # img = cv2.imread(fname)
-    data = np.fromstring(png_image.getvalue(), dtype=np.uint8)
-    img = cv2.imdecode(data, -1)
-
-    # Turning alpha to white
-    channels = cv2.split(img)
-    inverted_alpha = ~channels[3]
-    channels[0] |= inverted_alpha
-    channels[1] |= inverted_alpha
-    channels[2] |= inverted_alpha
-    img = cv2.merge(channels[:3])
-
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ret, gray = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY_INV)
+    img = cv2.imread(png_filename, 0)
+    ret, gray = cv2.threshold(img, 200, 255, cv2.THRESH_BINARY_INV)
 
     # Remove borders
 
@@ -137,14 +127,29 @@ def get_ikea_product():
         r = requests.get('http://www.ikea.com' + assembly_url)
         f.write(r.content)
 
-    # Parse PDF
+    diagrams = get_diagrams_from_file(pdf_fname)
+    os.unlink(pdf_fname)
+
+    if not diagrams:
+        return None, None
+
+    chosen_diagram = random.choice(diagrams)
+
+    output_filename = tempfile.mkstemp(prefix='tmp_instruction_bot', suffix='.png')[1]
+    cv2.imwrite(output_filename, chosen_diagram)
+
+    return product_name, output_filename
+
+def get_diagrams_from_file(pdf_fname):
     with open(pdf_fname, 'rb') as f:
         pdf_doc = PdfFileReader(f)
         total_pages = pdf_doc.getNumPages()
 
     diagrams = []
 
-    temp_filename = tempfile.mkstemp(prefix='tmp_instruction_bot')[1]
+    temp_filename = tempfile.mkstemp(prefix='tmp_instruction_bot', suffix='.png')[1]
+    # pdftocairo bug, appending a suffix despite -singlefile
+    temp_filename_no_suffix = temp_filename[:-4]
 
     for page_number in range(2, total_pages+1):
         if is_text_page(pdf_fname, page_number):
@@ -152,27 +157,17 @@ def get_ikea_product():
             continue
 
         subprocess.call(['pdftocairo', '-f', str(page_number), '-l', str(page_number),
-            '-svg', pdf_fname, temp_filename])
-
-        png_image = StringIO()
-
-        with open(temp_filename) as f_in:
-            cairosvg.svg2png(file_obj=f_in, write_to=png_image)
+            '-png', '-singlefile', '-scale-to', '1241', '-gray', pdf_fname, temp_filename_no_suffix])
 
         print 'Fetching diagrams from page', page_number, '...',
-        page_diagrams = get_diagrams(png_image)
+        page_diagrams = get_diagrams(temp_filename)
         diagrams.extend(page_diagrams)
         print 'found', len(page_diagrams)
-    os.unlink(pdf_fname)
+    os.unlink(temp_filename)
 
-    if not diagrams:
-        os.unlink(temp_filename)
-        return None, None
+    return diagrams
 
-    chosen_diagram = random.choice(diagrams)
-
-    output_filename = temp_filename + '.png'
-    cv2.imwrite(output_filename, chosen_diagram)
-
-    return product_name, output_filename
-
+if __name__ == '__main__':
+    for diagram in get_diagrams_from_file(sys.argv[1]):
+        cv2.imshow('IMG', diagram)
+        cv2.waitKey(0)
