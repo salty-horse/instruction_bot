@@ -163,9 +163,12 @@ def get_random_walkthrough_instruction(char_limit=100):
               replace("s ' ", "s' "). \
               replace(u" ’ s ", "'s "). \
               replace(" 'll ", "'ll "). \
+              replace(" ' ll ", "'ll "). \
               replace(" n't", "n't"). \
               replace(" 're ", "'re "). \
+              replace(" ' re ", "'re "). \
               replace(" 've ", "'ve "). \
+              replace(" ' ve ", "'ve "). \
               replace('$ ', '$'). \
               replace(" ( ", " ("). \
               replace(" )", ")"). \
