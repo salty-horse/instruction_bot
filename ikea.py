@@ -129,7 +129,10 @@ def get_assembly_files():
                         assemblies[atch['attachmentPath']] = extract_product_name(atch['attachmentName'])
     return assemblies
 
-ASSEMBLY_FILES = get_assembly_files()
+#ASSEMBLY_FILES = get_assembly_files()
+
+# Load a smaller file with just the assembly files
+ASSEMBLY_FILES = json.load(codecs.getreader("utf-8")(gzip.open(ROOT_PATH + 'ikea/ikea_assembly_files.json.gz')))
 
 def get_ikea_product():
     assembly_url = random.choice(ASSEMBLY_FILES.keys())
