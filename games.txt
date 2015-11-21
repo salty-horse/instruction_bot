@@ -53,7 +53,9 @@
 #/pc/583315-heart-de-roommate/faqs
 #/pc/583412-private-nurse/faqs
 #/pc/583541-sensei-2/faqs
+#/pc/604312-boob-wars-big-boobs-vs-flat-chests/faqs
 #/pc/605834-ssss-super-secret-sexy-spy/faqs
+#/pc/606307-the-fruit-of-grisaia/faqs
 #/pc/618205-daiteikoku/faqs
 #/pc/620219-kodzukuri-youkai-h-henka/faqs
 #/pc/622256-harapara-swan-nakadashi-paradise/faqs
@@ -582,13 +584,11 @@
 /pc/58479-gabriel-knight-3-blood-of-the-sacred-blood-of-the-damned/faqs
 /pc/589578-crystal-key-2-the-far-realm/faqs
 /pc/589700-dreamfall-the-longest-journey/faqs
-/pc/604312-boob-wars-big-boobs-vs-flat-chests/faqs
 /pc/604977-spider-man-shattered-dimensions/faqs
 /pc/604981-lucius/faqs
 /pc/605048-csi-crime-scene-investigation-fatal-conspiracy/faqs
 /pc/605454-nancy-drew-secrets-can-kill-remastered/faqs
 /pc/605725-broken-sword-shadow-of-the-templars-the-directors-cut/faqs
-/pc/606307-the-fruit-of-grisaia/faqs
 /pc/606326-nancy-drew-shadow-at-the-waters-edge/faqs
 /pc/609401-adams-venture-episode-2-solomons-secret/faqs
 /pc/617576-sam-and-max-the-devils-playhouse/faqs
