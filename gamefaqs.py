@@ -32,7 +32,7 @@ filter_substrings = [
     'copyright',
 ]
 
-def get_random_walkthrough_instruction(char_limit=100):
+def get_random_walkthrough_instruction(char_limit=95):
     with open(ROOT_PATH + '/games.txt') as f:
         game_url = 'http://gamefaqs.com' + random.choice([
                 g for
