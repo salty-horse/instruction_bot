@@ -21,6 +21,15 @@ PRODUCT_NAME_RE = re.compile(u'([ÅÄÖA-Z/]+)')
 LETTER_RE = re.compile(('[^\W\d]'))
 
 
+CONTROL_CHARS = range(0, 31)
+regex_str = \
+    '[' +  \
+        ''.join(r'\x' + hex(n)[2:].zfill(2) for n in CONTROL_CHARS) + \
+    ']|</?[bi]>'
+RE_STRIP_XML = re.compile(regex_str)
+
+def strip_control_chars_and_tags(s):
+    return RE_STRIP_XML.sub('', s)
 
 def get_diagrams(png_filename, xml_filename):
     # img = cv2.imread(fname)
@@ -28,7 +37,13 @@ def get_diagrams(png_filename, xml_filename):
     ret, gray = cv2.threshold(img, 200, 255, cv2.THRESH_BINARY_INV)
 
     # Remove text from gray image
-    tree = etree.parse(xml_filename)
+    xml_data = open(xml_filename).read()
+
+    # Fix malformed input in xml. Bug in pdftohtml
+    # https://bugs.freedesktop.org/show_bug.cgi?id=24890
+    xml_data = strip_control_chars_and_tags(xml_data)
+
+    tree = etree.fromstring(xml_data)
     page_elem = tree.xpath('//page')[0]
     page_width = int(page_elem.attrib['width'])
     page_height = int(page_elem.attrib['height'])
