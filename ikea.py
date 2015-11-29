@@ -158,6 +158,9 @@ def get_ikea_product():
 
     with open(pdf_fname, 'w') as f:
         r = requests.get('http://www.ikea.com' + assembly_url)
+        if r.status_code != 200:
+            print u'ERROR: File returned status code {}: {}'.format(r.status_code, assembly_url)
+            return None, None
         f.write(r.content)
 
     diagrams = get_diagrams_from_file(pdf_fname)
