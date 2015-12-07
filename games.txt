@@ -150,6 +150,7 @@
 #/pc/959711-maji-de-watashi-ni-koi-shinasai/faqs
 #/pc/971033-throb-the-greatest-inventions-of-the-sexy-era/faqs
 #/pc/971335-kirakira/faqs
+#/pc/971517-ef-the-latter-tale/faqs
 #/pc/971847-my-girlfriend-is-the-president/faqs
 #/pc/977246-pia-carrot-e-youkoso/faqs
 #/pc/978203-period/faqs
@@ -917,7 +918,6 @@
 /pc/971016-shuffle-essence/faqs
 /pc/971344-prison-break-the-conspiracy/faqs
 /pc/971347-the-blackwell-convergence/faqs
-/pc/971517-ef-the-latter-tale/faqs
 /pc/971542-lost-horizon/faqs
 /pc/971743-fate-the-traitor-soul/faqs
 /pc/972998-machinarium/faqs
