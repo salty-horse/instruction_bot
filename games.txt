@@ -73,6 +73,7 @@
 #/pc/917159-tsukihime/faqs
 #/pc/917276-boku-no-mehisho-wa-doukyuusei/faqs
 #/pc/917283-chocolat-maid-cafe-curio/faqs
+#/pc/917323-zanma-taisei-demonbane/faqs
 #/pc/918461-kango-shicyauzo-2/faqs
 #/pc/918565-x-change-2/faqs
 #/pc/919015-pick-me-honey/faqs
@@ -702,7 +703,6 @@
 /pc/916196-cutthroats/faqs
 /pc/917234-perfect-assassin/faqs
 /pc/917313-jewel-knights-crusaders/faqs
-/pc/917323-zanma-taisei-demonbane/faqs
 /pc/917412-casual-romance-club/faqs
 /pc/917464-moop-and-dreadly-the-treasure-on-bing-bong-island/faqs
 /pc/917512-pajama-sam-3-you-are-what-you-eat-from-your-head-to-your/faqs
