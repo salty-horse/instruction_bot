@@ -74,6 +74,7 @@
 #/pc/917276-boku-no-mehisho-wa-doukyuusei/faqs
 #/pc/917283-chocolat-maid-cafe-curio/faqs
 #/pc/917323-zanma-taisei-demonbane/faqs
+#/pc/918418-cross-channel/faqs
 #/pc/918461-kango-shicyauzo-2/faqs
 #/pc/918565-x-change-2/faqs
 #/pc/919015-pick-me-honey/faqs
@@ -714,7 +715,6 @@
 /pc/917961-nancy-drew-the-haunted-carousel/faqs
 /pc/917983-the-black-mirror/faqs
 /pc/918396-avernum-3/faqs
-/pc/918418-cross-channel/faqs
 /pc/918488-nancy-drew-danger-on-deception-island/faqs
 /pc/919045-journey-to-the-center-of-the-earth/faqs
 /pc/919073-agon-the-mysterious-codex/faqs
