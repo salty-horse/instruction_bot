@@ -146,6 +146,7 @@
 #/pc/936359-kawarazakike-no-ichizoku/faqs
 #/pc/938664-kangoku-senkan/faqs
 #/pc/938721-triangle-blue/faqs
+#/pc/938933-shion-zankoku-na-mahou-no-tenshi/faqs
 #/pc/944824-heart-no-kuni-no-alice/faqs
 #/pc/954256-heart-work/faqs
 #/pc/955710-ryoujoku-guerrilla-gari/faqs
@@ -831,7 +832,6 @@
 /pc/938529-so-blonde/faqs
 /pc/938652-sam-and-max-season-one/faqs
 /pc/938729-agatha-christie-evil-under-the-sun/faqs
-/pc/938933-shion-zankoku-na-mahou-no-tenshi/faqs
 /pc/939001-nancy-drew-the-white-wolf-of-icicle-creek/faqs
 /pc/939029-sam-and-max-episode-106-bright-side-of-the-moon/faqs
 /pc/939170-one-kagayaku-kisetsu-e/faqs
