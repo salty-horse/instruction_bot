@@ -2,5 +2,5 @@ cairosvg==1.0.19
 lxml==3.5.0
 pattern==2.6
 pyPDF2==1.25.1
-requests==2.8.1
+requests==2.20.0
 tweepy==3.4.0
